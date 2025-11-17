@@ -41,9 +41,12 @@ if from_position<end_position:
         print("-----")
 
 
+company_list=["Alpha Corp","Beta LLC","Gamma Inc","Delta Ltd","Epsilon GmbH"]
+loation_list=["New York","Los Angeles","Chicago","Houston","Phoenix"]
 
-
-
+#concatenate two lists
+for company, location in zip(company_list, loation_list):
+    print(f"Company: {company} - Location: {location}")
 
 
 
