@@ -18,3 +18,9 @@ print("Location Name:", location_name)
 print("Location Coordinates:", location_coords)
 
 print(f"Name: {location_name}, Code: {location_code}, Coordinates: {location_coords}")
+
+# identify variable types
+print("Variable Types:")
+print("Type of location_code:", type(location_code))
+print("Type of location_name:", type(location_name))
+print("Type of location_coords:", type(location_coords))
