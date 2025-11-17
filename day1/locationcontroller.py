@@ -49,7 +49,13 @@ for company, location in zip(company_list, loation_list):
     print(f"Company: {company} - Location: {location}")
 
 
-
+#sort the locations based on location name
+sorted_locations=sorted(locations, key=lambda loc: loc._location_name,reverse=False)
+print("\nLocations sorted by Location Name:\n")
+for loc in sorted_locations[0:5]:   
+    print(f"Location Name: {loc._location_name}")    
+    print("------")
+   
 
 """
 #generate fake location data
