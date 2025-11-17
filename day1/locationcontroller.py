@@ -20,6 +20,18 @@ for _ in range(1,100):
 from_position=fake.random_int(min=0, max=98)
 end_position=fake.random_int(min=from_position+1, max=99)
 print(f"Displaying locations from position {from_position} to {end_position-1}:\n")
+#generate report using readonly access,create a tuple to hold the report data
+localtion_report=()
+localtion_report=tuple(locations[from_position:end_position])
+for loc in localtion_report:
+    print(f"Location Code: {loc._location_code}")
+    print(f"Location Name: {loc._location_name}")    
+    print(f"Latitude: {loc._latitude}")
+    print(f"Longitude: {loc._longitude}")
+    print("-----")
+#cannot modify the tuple, below line would raise an error    
+#localtion_report.append("End of Report")
+
 if from_position<end_position:
     for loc in locations[from_position:end_position]:
         print(f"Location Code: {loc._location_code}")
