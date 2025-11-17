@@ -24,3 +24,11 @@ print("Variable Types:")
 print("Type of location_code:", type(location_code))
 print("Type of location_name:", type(location_name))
 print("Type of location_coords:", type(location_coords))
+
+#region details
+region_id=int(input("Enter Region ID (integer): "))
+region_name=input("Enter Region Name: ")
+
+print("Region Details:")
+print("Region ID:", region_id)
+print("Region Name:", region_name)
