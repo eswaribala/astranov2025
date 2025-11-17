@@ -21,3 +21,10 @@ from datetime import datetime
 today = datetime.now()
 date_difference = (today - product_stock_updated_on).days
 print("Days since last stock update:", date_difference)
+
+if date_difference > 30:
+    print("Stock update is older than 30 days. Consider reviewing stock levels.")
+elif (date_difference > 15) and (date_difference <30):
+    print("Stock update is older than 15 days. Monitor stock levels closely.")
+else:
+    print("Stock update is recent. No immediate action required.")
