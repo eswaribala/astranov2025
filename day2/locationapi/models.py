@@ -6,8 +6,8 @@ from .database import Base
 
 class Location(Base):
     __tablename__ = "locations"
-    code = Column(Integer, primary_key=True, index=True)
+    code = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String(255), nullable=False)
     latitude = Column(Float, nullable=False)
     longitude = Column(Float, nullable=False)
-    created_on = Column(Date, nullable=False)
+    created_on = Column(String(15), nullable=False)
