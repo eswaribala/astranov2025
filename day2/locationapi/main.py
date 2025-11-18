@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
-from .database import Base,engine
-from .models import Location
+from database import Base
 from fastapi import FastAPI
+from database import engine
 
 # Create the database tables
 Base.metadata.create_all(bind=engine)
