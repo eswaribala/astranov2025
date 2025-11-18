@@ -1,5 +1,8 @@
 from enum import Enum
 from abc import ABC, abstractmethod
+from exceptions.validate import validate_email
+
+from exceptions.EmailException import EmailException
 
 class Gender(Enum):
     MALE = "Male"
@@ -19,6 +22,9 @@ class Customer(ABC):
     def __init__(self, customer_id, name, email):
         self._customer_id = customer_id
         self._name = name
+        if( not validate_email(email)):
+            self._email="sample@astra.com"
+            raise EmailException("Invalid email format")
         self._email = email
     @abstractmethod
     def calculate_discount(self):
