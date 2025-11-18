@@ -19,6 +19,9 @@ add_region(name="South India")
 
 #print location and region lists
 print("Locations Added:")
-print(location_list)
+for loc in location_list:
+    print(loc.show())
+
 print("Regions Added:") 
-print(region_list)
+for reg in region_list:
+    print(reg.show())
