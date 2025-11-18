@@ -44,3 +44,5 @@ print(vars(corporate1))
 #print discounts
 print(f"Individual Customer Discount: {individual1.calculate_discount()*100}%")
 print(f"Corporate Customer Discount: {corporate1.calculate_discount()*100}%")
+#print payment terms
+print(f"Payment Terms: {Customer.payment_terms}")

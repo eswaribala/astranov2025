@@ -14,6 +14,8 @@ class CompanyType(Enum):
 
 #abstract class
 class Customer(ABC):
+    #static variable
+    payment_terms = "Net 30 Days"
     def __init__(self, customer_id, name, email):
         self._customer_id = customer_id
         self._name = name
