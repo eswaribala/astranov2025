@@ -25,3 +25,14 @@ for loc in location_list:
 print("Regions Added:") 
 for reg in region_list:
     print(reg.show())
+
+
+#add infividual and corporate customers
+from supplychain.customer.individualcontroller import add_individual_customer   
+from supplychain.customer.corporatecontroller import add_corporate_customer
+individual1 = add_individual_customer(customer_id=1, name="John Doe", email="john.doe@example.com", date_of_birth="1990-01-01", gender="Male")
+corporate1 = add_corporate_customer(customer_id=2, name="Acme Corp", email="contact@acmecorp.com", company_type="Corporation", tax_id="123456789")  
+print("Individual Customer Added:")
+print(vars(individual1))
+print("Corporate Customer Added:")
+print(vars(corporate1)) 
