@@ -1,5 +1,8 @@
 from supplychain.location.locationcontroller import add_location
 from supplychain.region.regioncontroller import add_region
+from supplychain.location.locationcontroller import location_list
+from supplychain.region.regioncontroller import region_list
+from supplychain.region.models import Region
 from faker import Faker
 fake = Faker("en_IN")
 
@@ -15,3 +18,8 @@ add_region(name="North India", code="NI")
 add_region(code="SI")
 add_region(name="South India")
 
+#print location and region lists
+print("Locations Added:")
+print(location_list)
+print("Regions Added:") 
+print(region_list)
