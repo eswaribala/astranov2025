@@ -1,6 +1,6 @@
 #add region
 
-from region.models import Region
+from supplychain.region.models import Region
 region_list = []
 def add_region(**details):
     for key,value in details.items():

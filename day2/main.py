@@ -1,5 +1,5 @@
-from location.locationcontroller import add_location, location_list
-from region.regioncontroller import add_region, region_list    
+from supplychain.location.locationcontroller import add_location, location_list
+from supplychain.region.regioncontroller import add_region, region_list    
 
 
 from faker import Faker
