@@ -9,3 +9,14 @@ class LocationBase(BaseModel):
 class LocationCreate(LocationBase):
     pass
 
+class LocationUpdate(LocationBase):
+    pass
+
+class LocationDelete(LocationBase):
+    pass
+class Location(LocationBase):
+    code: int
+
+    class Config:
+        orm_mode = True
+
