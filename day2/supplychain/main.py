@@ -1,8 +1,7 @@
-from supplychain.location.locationcontroller import add_location
-from supplychain.region.regioncontroller import add_region
-from supplychain.location.locationcontroller import location_list
-from supplychain.region.regioncontroller import region_list
-from supplychain.region.models import Region
+from location.locationcontroller import add_location, location_list
+from region.regioncontroller import add_region, region_list    
+
+
 from faker import Faker
 fake = Faker("en_IN")
 
