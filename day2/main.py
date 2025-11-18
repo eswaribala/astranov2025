@@ -1,5 +1,6 @@
 from supplychain.location.locationcontroller import add_location, location_list
 from supplychain.region.regioncontroller import add_region, region_list    
+from supplychain.customer.models import Customer
 
 
 from faker import Faker
@@ -26,8 +27,11 @@ print("Regions Added:")
 for reg in region_list:
     print(reg.show())
 
+#create for customer
+customer=Customer(customer_id=1, name="John Doe", email="john.doe@example.com")
 
-#add infividual and corporate customers
+
+#add individual and corporate customers
 from supplychain.customer.individualcontroller import add_individual_customer   
 from supplychain.customer.corporatecontroller import add_corporate_customer
 individual1 = add_individual_customer(customer_id=1, name="John Doe", email="john.doe@example.com", date_of_birth="1990-01-01", gender="Male")

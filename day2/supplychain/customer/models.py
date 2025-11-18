@@ -1,4 +1,5 @@
 from enum import Enum
+from abc import ABC, abstractmethod
 
 class Gender(Enum):
     MALE = "Male"
@@ -11,11 +12,15 @@ class CompanyType(Enum):
     PARTNERSHIP = "Partnership"
     SOLE_PROPRIETORSHIP = "Sole Proprietorship"
 
-class Customer:
+#abstract class
+class Customer(ABC):
     def __init__(self, customer_id, name, email):
         self._customer_id = customer_id
         self._name = name
         self._email = email
+    @abstractmethod
+    def calculate_discount(self):
+        pass    
 
 
 #inheritance
