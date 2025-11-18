@@ -28,15 +28,19 @@ for reg in region_list:
     print(reg.show())
 
 #create for customer
-customer=Customer(customer_id=1, name="John Doe", email="john.doe@example.com")
+#customer=Customer(customer_id=1, name="John Doe", email="john.doe@example.com")
 
 
 #add individual and corporate customers
 from supplychain.customer.individualcontroller import add_individual_customer   
 from supplychain.customer.corporatecontroller import add_corporate_customer
+#sample individual and corporate customers
 individual1 = add_individual_customer(customer_id=1, name="John Doe", email="john.doe@example.com", date_of_birth="1990-01-01", gender="Male")
 corporate1 = add_corporate_customer(customer_id=2, name="Acme Corp", email="contact@acmecorp.com", company_type="Corporation", tax_id="123456789")  
 print("Individual Customer Added:")
 print(vars(individual1))
 print("Corporate Customer Added:")
 print(vars(corporate1)) 
+#print discounts
+print(f"Individual Customer Discount: {individual1.calculate_discount()*100}%")
+print(f"Corporate Customer Discount: {corporate1.calculate_discount()*100}%")
