@@ -37,7 +37,7 @@ from supplychain.customer.individualcontroller import add_individual_customer
 from supplychain.customer.corporatecontroller import add_corporate_customer
 #sample individual and corporate customers
 try:
-    individual1 = add_individual_customer(customer_id=1, name="John Doe", email="john.doe@sexample.com", date_of_birth="1990-01-01", gender="Male")
+    individual1 = add_individual_customer(customer_id=1, name="John Doe", email="john.does@example.com", date_of_birth="1990-01-01", gender="Male")
     corporate1 = add_corporate_customer(customer_id=2, name="Acme Corp", email="contact@acmecorp.com", company_type="Corporation", tax_id="123456789")  
     print("Individual Customer Added:")
     print(vars(individual1))

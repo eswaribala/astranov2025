@@ -21,10 +21,7 @@ class Customer(ABC):
     payment_terms = "Net 30 Days"
     def __init__(self, customer_id, name, email):
         self._customer_id = customer_id
-        self._name = name
-        if( not validate_email(email)):
-            self._email="sample@astra.com"
-            raise EmailException("Invalid email format")
+        self._name = name        
         self._email = email
     @abstractmethod
     def calculate_discount(self):
