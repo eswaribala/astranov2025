@@ -1,3 +1,4 @@
+from exceptions import EmailException
 from supplychain.location.locationcontroller import add_location, location_list
 from supplychain.region.regioncontroller import add_region, region_list    
 from supplychain.customer.models import Customer
@@ -35,14 +36,19 @@ for reg in region_list:
 from supplychain.customer.individualcontroller import add_individual_customer   
 from supplychain.customer.corporatecontroller import add_corporate_customer
 #sample individual and corporate customers
-individual1 = add_individual_customer(customer_id=1, name="John Doe", email="john.doe@example.com", date_of_birth="1990-01-01", gender="Male")
-corporate1 = add_corporate_customer(customer_id=2, name="Acme Corp", email="contact@acmecorp.com", company_type="Corporation", tax_id="123456789")  
-print("Individual Customer Added:")
-print(vars(individual1))
-print("Corporate Customer Added:")
-print(vars(corporate1)) 
-#print discounts
-print(f"Individual Customer Discount: {individual1.calculate_discount()*100}%")
-print(f"Corporate Customer Discount: {corporate1.calculate_discount()*100}%")
-#print payment terms
-print(f"Payment Terms: {Customer.payment_terms}")
+try:
+    individual1 = add_individual_customer(customer_id=1, name="John Doe", email="john.doe@sexample.com", date_of_birth="1990-01-01", gender="Male")
+    corporate1 = add_corporate_customer(customer_id=2, name="Acme Corp", email="contact@acmecorp.com", company_type="Corporation", tax_id="123456789")  
+    print("Individual Customer Added:")
+    print(vars(individual1))
+    print("Corporate Customer Added:")
+    print(vars(corporate1)) 
+    #print discounts
+    print(f"Individual Customer Discount: {individual1.calculate_discount()*100}%")
+    print(f"Corporate Customer Discount: {corporate1.calculate_discount()*100}%")
+    #print payment terms
+    print(f"Payment Terms: {Customer.payment_terms}")
+except EmailException as e:
+    print(f"Error: {e}")    
+except Exception as e:
+    print(f"An unexpected error occurred: {e}") 
