@@ -4,8 +4,9 @@ from sqlalchemy import create_engine
 from fastapi import FastAPI
 from database import Base, engine, get_db
 from locationapi.middleware.jwtauth import JWTAthenticationMiddleware
+from locationapi.middleware.token_helper import create_token
 from models import Location
-from schema import LocationCreate, LocationNameUpdate, LocationOut
+from schema import LocationCreate, LocationNameUpdate, LocationOut, LoginRequest, TokenResponse
 from sqlalchemy.orm import Session
 from fastapi import Depends,status
 import uvicorn
@@ -22,8 +23,10 @@ def load_home():
     return {"message": "Welcome to the Location API"}
 
 
-def jwt_login():
-    pass
+@app.post("/login", response_model=TokenResponse)
+def jwt_login(login_request:LoginRequest):
+   access_token = create_token(data={"sub": login_request.username})
+   return {"access_token": access_token, "token_type": "bearer"}
 
 @app.post("/locations/v1.0/", response_model=LocationOut, status_code=status.HTTP_201_CREATED)
 def create_location(location:LocationCreate, db:Session=Depends(get_db)):
