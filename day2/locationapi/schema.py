@@ -14,7 +14,7 @@ class LocationUpdate(LocationBase):
 
 class LocationDelete(LocationBase):
     pass
-class Location(LocationBase):
+class LocationOut(LocationBase):
     code: int
 
     class Config:
