@@ -4,6 +4,7 @@ import jwt
 from datetime import datetime, timedelta
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi import Depends
+from schema import LoginRequest
 security_scheme = HTTPBearer()
 load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
@@ -30,3 +31,14 @@ def get_current_user( credentials: HTTPAuthorizationCredentials = Depends(securi
     token = credentials.credentials
     payload = decode_token(token)
     return payload
+
+def verify_login_credentials(file_path: str, login_request:LoginRequest) -> bool:
+    # For demonstration purposes, using hardcoded credentials
+    # In production, verify against a user database
+    with open(file_path, 'r') as f:
+        lines = f.readlines()
+        for line in lines:
+            username, password = line.strip().split(',')
+            if login_request.username == username and login_request.password == password:
+                return True
+    return False

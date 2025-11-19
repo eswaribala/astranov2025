@@ -17,7 +17,7 @@ if not os.path.exists(dirPath):
 
 filePath = os.path.join(dirPath, fileName)
 with open(filePath, mode='w', newline='') as file:
-    file.write("id,username,email\n")
+    file.write("id,username,password\n")
     for idx, user in enumerate(users, start=1):
         file.write(f"{idx},{user.username},{user.password}\n")
 
