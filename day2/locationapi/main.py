@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from fastapi import FastAPI
 from database import Base, engine, get_db
 from locationapi.middleware.jwtauth import JWTAthenticationMiddleware
-from locationapi.middleware.token_helper import create_token, verify_login_credentials
+from locationapi.middleware.token_helper import create_token, get_current_user, verify_login_credentials
 from models import Location
 from schema import LocationCreate, LocationNameUpdate, LocationOut, LoginRequest, TokenResponse
 from sqlalchemy.orm import Session
@@ -39,7 +39,7 @@ def create_location(location:LocationCreate, db:Session=Depends(get_db)):
     db.refresh(db_location)
     return db_location
 
-@app.get("/locations/v1.0/", response_model=list[LocationOut])
+@app.get("/locations/v1.0/", response_model=list[LocationOut],dependencies=[Depends(get_current_user)])
 def get_locations(db:Session=Depends(get_db)):
     locations = db.query(Location).all()
     return locations
