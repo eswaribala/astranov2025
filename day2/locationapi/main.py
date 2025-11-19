@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from fastapi import FastAPI
 from database import Base, engine, get_db
 from models import Location
-from schema import LocationCreate, LocationOut
+from schema import LocationCreate, LocationNameUpdate, LocationOut
 from sqlalchemy.orm import Session
 from fastapi import Depends,status
 import uvicorn
@@ -34,6 +34,16 @@ def get_locations(db:Session=Depends(get_db)):
 @app.get("/locations/v1.0/{code}", response_model=LocationOut)
 def get_location_by_code(code:int, db:Session=Depends(get_db)):
     return db.query(Location).filter(Location.code==code).first()
+
+@app.patch("/locations/v1.0/{code}", response_model=LocationOut)
+def update_location(code:int, location:LocationNameUpdate, db:Session=Depends(get_db)):
+    db_location = db.query(Location).filter(Location.code==code).first()
+    if db_location:
+        db_location.name = location.name        
+        db.commit()
+        db.refresh(db_location)
+    return db_location
+
 
 if __name__ == "__main__":
     

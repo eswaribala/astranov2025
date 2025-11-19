@@ -12,6 +12,9 @@ class LocationCreate(LocationBase):
 class LocationUpdate(LocationBase):
     pass
 
+class LocationNameUpdate(BaseModel):
+    name: str
+
 class LocationDelete(LocationBase):
     pass
 class LocationOut(LocationBase):
