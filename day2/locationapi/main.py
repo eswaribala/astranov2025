@@ -3,6 +3,7 @@ from sqlalchemy import create_engine
 
 from fastapi import FastAPI
 from database import Base, engine, get_db
+from locationapi.middleware.jwtauth import JWTAthenticationMiddleware
 from models import Location
 from schema import LocationCreate, LocationNameUpdate, LocationOut
 from sqlalchemy.orm import Session
@@ -14,11 +15,15 @@ Base.metadata.create_all(bind=engine)
 #create fastapi app
 app = FastAPI()
 #add middleware
-app.add_middleware()
+app.add_middleware(JWTAthenticationMiddleware)
 
 @app.get("/")
 def load_home():
     return {"message": "Welcome to the Location API"}
+
+
+def jwt_login():
+    pass
 
 @app.post("/locations/v1.0/", response_model=LocationOut, status_code=status.HTTP_201_CREATED)
 def create_location(location:LocationCreate, db:Session=Depends(get_db)):
