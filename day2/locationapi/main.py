@@ -3,6 +3,7 @@ from sqlalchemy import create_engine
 
 from fastapi import FastAPI
 from database import Base, engine, get_db
+from middleware.log_middleware import LoggingMiddleware
 from middleware.jwtauth import JWTAthenticationMiddleware
 from middleware.token_helper import create_token, get_current_user, verify_login_credentials
 from models import Location
@@ -22,6 +23,7 @@ app.add_middleware(CORSMiddleware,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.add_middleware(LoggingMiddleware)
 #add middleware
 app.add_middleware(JWTAthenticationMiddleware)
 
