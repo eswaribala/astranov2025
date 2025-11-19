@@ -13,7 +13,8 @@ Base.metadata.create_all(bind=engine)
 
 #create fastapi app
 app = FastAPI()
-
+#add middleware
+app.add_middleware()
 
 @app.get("/")
 def load_home():
