@@ -38,7 +38,7 @@ def verify_login_credentials(file_path: str, login_request:LoginRequest) -> bool
     with open(file_path, 'r') as f:
         lines = f.readlines()
         for line in lines:
-            username, password = line.strip().split(',')
+            _, username, password = line.strip().split(',')
             if login_request.username == username and login_request.password == password:
                 return True
     return False

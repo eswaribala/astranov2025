@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from fastapi import FastAPI
 from database import Base, engine, get_db
 from locationapi.middleware.jwtauth import JWTAthenticationMiddleware
-from locationapi.middleware.token_helper import create_token
+from locationapi.middleware.token_helper import create_token, verify_login_credentials
 from models import Location
 from schema import LocationCreate, LocationNameUpdate, LocationOut, LoginRequest, TokenResponse
 from sqlalchemy.orm import Session
@@ -25,8 +25,11 @@ def load_home():
 
 @app.post("/login", response_model=TokenResponse)
 def jwt_login(login_request:LoginRequest):
-   access_token = create_token(data={"sub": login_request.username})
-   return {"access_token": access_token, "token_type": "bearer"}
+    if not verify_login_credentials("E:\\astratraining\\day2\\reports\\users.csv", login_request):
+         return status.HTTP_401_UNAUTHORIZED
+    else:
+      access_token = create_token(data={"sub": login_request.username})
+      return {"access_token": access_token, "token_type": "bearer"}
 
 @app.post("/locations/v1.0/", response_model=LocationOut, status_code=status.HTTP_201_CREATED)
 def create_location(location:LocationCreate, db:Session=Depends(get_db)):
