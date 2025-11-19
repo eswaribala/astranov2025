@@ -21,7 +21,7 @@ def load_home():
 
 @app.post("/locations/v1.0/", response_model=LocationOut, status_code=status.HTTP_201_CREATED)
 def create_location(location:LocationCreate, db:Session=Depends(get_db)):
-    db_location=Location(location.name, location.latitude, location.longitude, location.created_on)
+    db_location = Location(name=location.name, latitude=location.latitude, longitude=location.longitude, created_on=location.created_on)
     db.add(db_location)
     db.commit()
     db.refresh(db_location)
