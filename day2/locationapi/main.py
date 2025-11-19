@@ -35,6 +35,10 @@ def get_locations(db:Session=Depends(get_db)):
 def get_location_by_code(code:int, db:Session=Depends(get_db)):
     return db.query(Location).filter(Location.code==code).first()
 
+@app.get("/locations/v1.0/name/{name}", response_model=list[LocationOut])
+def get_location_by_name(name:str, db:Session=Depends(get_db)):
+    return db.query(Location).filter(Location.name==name).all()
+
 @app.patch("/locations/v1.0/{code}", response_model=LocationOut)
 def update_location(code:int, location:LocationNameUpdate, db:Session=Depends(get_db)):
     db_location = db.query(Location).filter(Location.code==code).first()
