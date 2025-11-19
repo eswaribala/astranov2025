@@ -5,13 +5,14 @@ from fastapi import FastAPI
 from database import Base, engine, get_db
 from middleware.log_middleware import LoggingMiddleware
 from middleware.jwtauth import JWTAthenticationMiddleware
-from middleware.token_helper import create_token, get_current_user, verify_login_credentials
+from middleware.token_helper import audit_log, create_token, get_current_user, verify_login_credentials
 from models import Location
 from schema import LocationCreate, LocationNameUpdate, LocationOut, LoginRequest, TokenResponse
 from sqlalchemy.orm import Session
-from fastapi import Depends,status
+from fastapi import Depends,status, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
+background_tasks = BackgroundTasks()
 # Create the database tables
 Base.metadata.create_all(bind=engine)
 
@@ -46,6 +47,7 @@ def create_location(location:LocationCreate, db:Session=Depends(get_db)):
     db.add(db_location)
     db.commit()
     db.refresh(db_location)
+    background_tasks.add_task(audit_log, "audit_log.csv", db_location, "CREATE")
     return db_location
 
 @app.get("/locations/v1.0/", response_model=list[LocationOut],dependencies=[Depends(get_current_user)])
