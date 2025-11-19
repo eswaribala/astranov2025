@@ -44,11 +44,6 @@ def verify_login_credentials(file_path: str, login_request:LoginRequest) -> bool
                 return True
     return False
 
-def audit_log(file_path: str, location:Location, action: str):
-    timestamp = datetime.now().isoformat()
-    if not os.path.exists(file_path):
-        with open(file_path, 'w') as f:
-            f.write("timestamp,code,name,latitude,longitude,action\n")
-    else:        
-        with open(file_path, 'a') as f:
-            f.write(f"{timestamp},{location.code},{location.name},{location.latitude},{location.longitude},{action}\n")
+def audit_log(location:Location):
+     with open("location_audit.log", "a", encoding="utf-8") as f:
+        f.write(f"Location created: {location.code},{location.name},{location.latitude},{location.longitude}\n")
