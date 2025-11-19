@@ -43,6 +43,13 @@ def update_location(code:int, location:LocationNameUpdate, db:Session=Depends(ge
         db.commit()
         db.refresh(db_location)
     return db_location
+@app.delete("/locations/v1.0/{code}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_location(code:int, db:Session=Depends(get_db)):
+    db_location = db.query(Location).filter(Location.code==code).first()
+    if db_location:
+        db.delete(db_location)
+        db.commit()
+    return None
 
 
 if __name__ == "__main__":
