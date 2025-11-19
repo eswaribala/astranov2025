@@ -31,6 +31,9 @@ def create_location(location:LocationCreate, db:Session=Depends(get_db)):
 def get_locations(db:Session=Depends(get_db)):
     locations = db.query(Location).all()
     return locations
+@app.get("/locations/v1.0/{code}", response_model=LocationOut)
+def get_location_by_code(code:int, db:Session=Depends(get_db)):
+    return db.query(Location).filter(Location.code==code).first()
 
 if __name__ == "__main__":
     
