@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.engine.url import URL
 load_dotenv()
 
 MYSQL_USER:str=os.getenv("MYSQL_USER")
@@ -17,11 +18,19 @@ print(f"MYSQL_HOST: {MYSQL_HOST}")
 print(f"MYSQL_PORT: {MYSQL_PORT}")
 print(f"MYSQL_DB: {MYSQL_DB}")
 """
-SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}:{MYSQL_PORT}/{MYSQL_DB}"
+#SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}:{MYSQL_PORT}/{MYSQL_DB}"
 #establishing the connection with mysql database
 #mysql+pymysql://<username>:<password>@<host>/<dbname>
+connection_url = URL.create(
+    drivername="mysql+pymysql",
+    username=MYSQL_USER,
+    password=MYSQL_PASSWORD,  # raw password allowed
+    host=MYSQL_HOST,
+    port=MYSQL_PORT,
+    database=MYSQL_DB,
+)
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL,
+    connection_url,
     echo=True,          # set False in production
     future=True
 )
