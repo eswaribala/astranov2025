@@ -2,6 +2,9 @@ from dotenv import load_dotenv
 import os
 import jwt
 from datetime import datetime, timedelta
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi import Depends
+security_scheme = HTTPBearer()
 load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
 ALGORITHM = os.getenv('ALGORITHM')
@@ -22,3 +25,8 @@ def decode_token(token: str):
         raise Exception("Token has expired")
     except jwt.InvalidTokenError:
         raise Exception("Invalid token")
+    
+def get_current_user( credentials: HTTPAuthorizationCredentials = Depends(security_scheme),):
+    token = credentials.credentials
+    payload = decode_token(token)
+    return payload
