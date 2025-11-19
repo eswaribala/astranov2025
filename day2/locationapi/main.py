@@ -41,13 +41,13 @@ def jwt_login(login_request:LoginRequest):
       access_token = create_token(data={"sub": login_request.username})
       return {"access_token": access_token, "token_type": "bearer"}
 
-@app.post("/locations/v1.0/", response_model=LocationOut, status_code=status.HTTP_201_CREATED)
+@app.post("/locations/v1.0/", response_model=LocationOut, status_code=status.HTTP_201_CREATED,dependencies=[Depends(get_current_user)])
 def create_location(location:LocationCreate, db:Session=Depends(get_db)):
     db_location = Location(name=location.name, latitude=location.latitude, longitude=location.longitude, created_on=location.created_on)
     db.add(db_location)
     db.commit()
     db.refresh(db_location)
-    background_tasks.add_task(audit_log, "audit_log.csv", db_location, "CREATE")
+    background_tasks.add_task(audit_log, "E:\\astratraining\\day2\\locationapi\\audit_log.log", db_location, "CREATE")
     return db_location
 
 @app.get("/locations/v1.0/", response_model=list[LocationOut],dependencies=[Depends(get_current_user)])

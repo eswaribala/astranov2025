@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi import Depends
 from schema import LoginRequest
-from locationapi.models import Location
+from models import Location
 security_scheme = HTTPBearer()
 load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
@@ -46,5 +46,9 @@ def verify_login_credentials(file_path: str, login_request:LoginRequest) -> bool
 
 def audit_log(file_path: str, location:Location, action: str):
     timestamp = datetime.now().isoformat()
-    with open(file_path, 'a') as f:
-        f.write(f"{timestamp},{location.code},{location.name},{location.latitude},{location.longitude},{action}\n")
+    if not os.path.exists(file_path):
+        with open(file_path, 'w') as f:
+            f.write("timestamp,code,name,latitude,longitude,action\n")
+    else:        
+        with open(file_path, 'a') as f:
+            f.write(f"{timestamp},{location.code},{location.name},{location.latitude},{location.longitude},{action}\n")
