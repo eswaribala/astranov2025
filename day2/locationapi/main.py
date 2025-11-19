@@ -3,18 +3,25 @@ from sqlalchemy import create_engine
 
 from fastapi import FastAPI
 from database import Base, engine, get_db
-from locationapi.middleware.jwtauth import JWTAthenticationMiddleware
-from locationapi.middleware.token_helper import create_token, get_current_user, verify_login_credentials
+from middleware.jwtauth import JWTAthenticationMiddleware
+from middleware.token_helper import create_token, get_current_user, verify_login_credentials
 from models import Location
 from schema import LocationCreate, LocationNameUpdate, LocationOut, LoginRequest, TokenResponse
 from sqlalchemy.orm import Session
 from fastapi import Depends,status
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 # Create the database tables
 Base.metadata.create_all(bind=engine)
 
 #create fastapi app
 app = FastAPI()
+app.add_middleware(CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 #add middleware
 app.add_middleware(JWTAthenticationMiddleware)
 
