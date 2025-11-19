@@ -1,6 +1,7 @@
 
 from dotenv import load_dotenv
 from fastapi import Request, HTTPException
+import jwt
 import os
 load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
