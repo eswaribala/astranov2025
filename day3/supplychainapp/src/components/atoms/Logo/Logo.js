@@ -1,12 +1,11 @@
 import React from 'react';
 import logo from '../../../assets/astralogo.jpg';
 
-import styles from './Logo.module.css';
+import  './Logo.css';
 
 const Logo = () => (
-  <img src={logo} alt="Company Logo" className={styles.logo} />  
+  <img src={logo} alt="Company Logo" class="img-logo" />  
 );
-
 
 
 export default Logo;
