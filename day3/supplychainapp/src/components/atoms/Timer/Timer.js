@@ -1,15 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import styles from './Timer.module.css';
+import { useState,useEffect } from 'react';
 
-const Timer = () => (
-  <div className={styles.Timer} data-testid="Timer">
-    Timer Component
-  </div>
-);
+function Timer() {
+  const[currentTime, setCurrentTime] = useState(new Date());
+  // Update time every second
+  useEffect(() => {
+    const timerId = setInterval(()=>{
+      setCurrentTime(new Date());
+    },1000)
+    return () => clearInterval(timerId);
+  }, []);
 
-Timer.propTypes = {};
-
-Timer.defaultProps = {};
-
+  //render the time
+  return(
+    <h4>{currentTime.toLocaleTimeString()}</h4>
+  )
+}
 export default Timer;
+
