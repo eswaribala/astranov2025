@@ -3,12 +3,14 @@ import { useFormik } from 'formik';
 import  './Login.css';
 import { Button , TextField} from '@mui/material';
 import * as Yup from 'yup';
+import axios from 'axios';
 
 const valiationSchema = Yup.object({
   userName: Yup.string().required('User Name is required'),
   password: Yup.string().required('Password is required')
 });
 
+const api_endpoint = "http://localhost:8000/login";
 
 
 const Login = () => {
@@ -21,7 +23,32 @@ const Login = () => {
     },
     validationSchema: valiationSchema,
     onSubmit: (values) => {
-      console.log('Form data', values);
+      
+      const jsondata={
+        "username": values.userName,
+        "password": values.password
+      }
+      console.log('Form data', jsondata);
+     const jsondataString = JSON.stringify(jsondata);
+     console.log('Form data', jsondataString);
+     fetch(api_endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: jsondataString
+     })
+     .then(response => {
+      if (!response.ok) {
+    }
+      return response.json();
+     })
+     .then(data => {
+      console.log('Success:', data);
+     })
+     .catch((error) => {
+      console.error('Error:', error);
+     });
     }
   });
 
