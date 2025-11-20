@@ -1,11 +1,10 @@
 import React from 'react';
+import logo from '../../../assets/astralogo.jpg';
 
 import styles from './Logo.module.css';
 
 const Logo = () => (
-  <div className={styles.Logo} data-testid="Logo">
-    Logo Component
-  </div>
+  <img src={logo} alt="Company Logo" className={styles.logo} />  
 );
 
 
