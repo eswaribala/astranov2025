@@ -1,5 +1,6 @@
 import React from 'react';
 import AstraHeader from '../../molecules/Header/Header';
+import Login from '../../molecules/Login/Login';
 import  './AstraHome.css';
 import HomeContent from '../../molecules/HomeContent/HomeContent';
 
@@ -8,6 +9,7 @@ const AstraHome = () => (
     <AstraHeader/>
     <div class="content">
       <HomeContent />
+      <Login/>
     </div>
   </div>
 );

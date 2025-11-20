@@ -1,6 +1,10 @@
 .content{
-    float:left;
-    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    gap: 200px;
     padding: 5%;
+    box-sizing: border-box;
+    align-items: center;
+    
 
 }
