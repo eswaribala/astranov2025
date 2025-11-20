@@ -1,15 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import styles from './Banner.module.css';
+import Banner from '../../../assets/banner.jpg'
+import  './Banner.css';
 
 const Banner = () => (
-  <div className={styles.Banner} data-testid="Banner">
-    Banner Component
-  </div>
+  <img src={Banner} alt="Banner" class="Banner" />
 );
 
-Banner.propTypes = {};
 
-Banner.defaultProps = {};
 
 export default Banner;
