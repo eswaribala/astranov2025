@@ -1,5 +1,5 @@
 import React from 'react';
-import ad1 from '../../../assets/images/ad1.png';
+import ad1 from '../../../assets/ad1.jpg';
 import { Image } from 'primereact/image';
 import './ContentAdv.css';
 
