@@ -1,0 +1,47 @@
+name: Push Workflow
+
+on:
+  push:
+    branches:
+      - master  # or 'master', or any branch you want
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: payrolldb
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DB_NAME: payrolldb
+      DB_USER: postgres
+      DB_PASSWORD: potsgres
+      DB_HOST: localhost
+      DB_PORT: 5432
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13.2'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r payrollapplication/requirements.txt
+
+      - name: Run a script (example)
+        run: python payrollapplication/manage.py test

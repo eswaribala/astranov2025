@@ -1,0 +1,23 @@
+name: On Release Published
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  on-release-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print release info
+        run: |
+          echo "A new release was published!"
+          echo "Tag: ${{ github.event.release.tag_name }}"
+          echo "Release Name: ${{ github.event.release.name }}"
+          echo "Published By: ${{ github.actor }}"
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run a script (example)
+        run: echo "This is where you'd run deployment or packaging logic"

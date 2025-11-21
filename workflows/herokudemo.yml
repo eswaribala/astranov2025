@@ -1,0 +1,31 @@
+name: Deploy to Heroku
+
+on:
+  push:
+    branches:
+      - master  # or 'master' or any branch you want
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js / Python / etc (optional)
+        uses: actions/setup-node@v4  # or setup-python, etc.
+        with:
+          node-version: '18'         # example version
+
+      - name: Install dependencies (optional)
+        run: |
+          npm install  # or pip install -r requirements.txt
+
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          usedocker: false  # Set to true if you're deploying a Docker app
