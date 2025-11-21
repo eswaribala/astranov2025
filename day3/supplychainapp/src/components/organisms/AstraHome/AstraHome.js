@@ -1,18 +1,40 @@
 import React from 'react';
-import AstraHeader from '../../molecules/Header/Header';
+
 import Login from '../../molecules/Login/Login';
 import  './AstraHome.css';
-import HomeContent from '../../molecules/HomeContent/HomeContent';
+import { Routes, Route } from 'react-router-dom';
+import Dashboard from '../Dashboard/Dashboard';
+import { useState } from 'react';
+import ContentAdv from '../../atoms/ContentAdv/ContentAdv';
+const AstraHome = () => {
 
-const AstraHome = () => (
-  <div  data-testid="AstraHome">
-    <AstraHeader/>
-    <div class="content">
-      <HomeContent />
-      <Login/>
+  const[isLoggedIn, setIsLoggedIn] = useState(false);
+   function handleLoginStatus(status) {
+        setIsLoggedIn(status);
+    }
+ return(
+   <div class='formLayout'> 
+        {(!isLoggedIn)&& (
+    <div class='formLayout'>
+        <ContentAdv/>
+        {<Login  loginStatus={handleLoginStatus} /> }
     </div>
-  </div>
-);
+    ) }
+
+        {isLoggedIn && (
+            <Routes>
+               
+                <Route path="/login" element={<Login />} />
+               
+                <Route path="/dashboard" element={<Dashboard />} />
+                
+               </Routes>
+        )}
+
+   </div>
+    )
+  
+};
 
 
 

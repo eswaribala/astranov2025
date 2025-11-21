@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  react-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: react-app
+    ports:
+      - "3000:3000"            # host:container
+    environment:
+      - CHOKIDAR_USEPOLLING=true   # helps file watching inside Docker on Windows/Mac
+    volumes:
+      - .:/app                    # mount local code
+      - /app/node_modules         # keep node_modules inside container
+    stdin_open: true              # for react-scripts (optional)
+    tty: true                     # for nicer logs (optional)

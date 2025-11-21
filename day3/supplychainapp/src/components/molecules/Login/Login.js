@@ -3,19 +3,19 @@ import { useFormik } from 'formik';
 import  './Login.css';
 import { Button , TextField} from '@mui/material';
 import * as Yup from 'yup';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const valiationSchema = Yup.object({
   userName: Yup.string().required('User Name is required'),
   password: Yup.string().required('Password is required')
 });
 
-const api_endpoint = "http://localhost:8000/login";
+const api_endpoint = "http://localhost:9000/login";
 
 
-const Login = () => {
+const Login = ({loginStatus}) => {
 
-
+ const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       userName: '',
@@ -44,7 +44,10 @@ const Login = () => {
       return response.json();
      })
      .then(data => {
-      console.log('Success:', data);
+      console.log('Success:', data.access_token);
+      localStorage.setItem('token', data.access_token);
+      loginStatus(true);
+      navigate('/dashboard');
      })
      .catch((error) => {
       console.error('Error:', error);
