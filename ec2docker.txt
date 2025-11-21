@@ -15,3 +15,8 @@ sudo docker container ls -a
 sudo docker exec -it <containerid> bin/bash
 
 #mongosh
+#install docker-compose tool
+sudo apt install docker-compose
+
+#to run container
+sudo docker-compose up -d
