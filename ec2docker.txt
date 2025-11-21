@@ -7,4 +7,11 @@ sudo systemctl start docker
 #check version
 docker -v
 #add application
-docker run -it --name=mongo-c1 -p 27017:27017 -d mongo
+sudo docker run -it --name=mongo-c1 -p 27017:27017 -d mongo
+#list the containers
+sudo docker container ls -a
+
+#to access mongodb
+sudo docker exec -it <containerid> bin/bash
+
+#mongosh
