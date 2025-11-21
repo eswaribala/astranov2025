@@ -15,7 +15,7 @@ services:
       - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-    command: --default-authentication-plugin=mysql_native_password
+    #command: --default-authentication-plugin=mysql_native_password
 
   locationapi:
     build:
@@ -35,7 +35,7 @@ services:
       - "9000:9000"
     volumes:
       - ./locationapi:/app
-    command:
+    #command:
 volumes:
   mysql_data:
 
