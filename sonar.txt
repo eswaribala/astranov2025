@@ -1,0 +1,79 @@
+SonarQube server (e.g. http://localhost:9000 or SonarCloud)
+
+project key
+eswaribala_kyndrlcidjun2025
+
+Sonar Token:
+
+Generate from your SonarQube account → My Account → Security → Generate Tokens
+
+token
+19752d326388dd27f1b97ed3306eab2e035d5e13
+
+
+Create sonar-project.properties in your repo root.
+
+🔹 1. sonar-project.properties file
+ini
+Copy
+Edit
+sonar.projectKey=your_project_key
+sonar.projectName=Your Project Name
+sonar.language=py
+sonar.sources=.
+sonar.sourceEncoding=UTF-8
+💡 Optional: Add exclusions
+sonar.exclusions=**/tests/**, **/__pycache__/**
+
+🔹 2. GitHub Action Workflow
+yaml
+Copy
+Edit
+# .github/workflows/sonar-python.yml
+
+name: SonarQube - Python Analysis
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  sonar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11' # or your version
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt || true  # Ignore if no requirements
+
+      - name: Run SonarQube Scanner
+        uses: SonarSource/sonarqube-scan-action@master
+        with:
+          args: >
+            -Dsonar.projectKey=your_project_key
+            -Dsonar.organization=your_org_key  # remove if using self-hosted SonarQube
+            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+
+      - name: Quality Gate Check (optional, waits for result)
+        uses: SonarSource/sonarqube-quality-gate-action@master
+        with:
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
+🔹 3. GitHub Secrets
+Go to Settings → Secrets → Actions and add:
+
+SONAR_TOKEN: Your SonarQube token
+
+SONAR_HOST_URL: e.g. http://localhost:9000 or https://sonarcloud.io
